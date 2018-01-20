@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package Robot;
+package team2935.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import Robot.commands.ExampleCommand;
-import Robot.subsystems.ExampleSubsystem;
+import team2935.robot.commands.drive.ExampleCommand;
+import team2935.robot.subsystems.ExampleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
