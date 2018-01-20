@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package Robot;
+package team2935.robot;
 
 /**
  * This class is the glue that binds the controls on the physical operator
