@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import team2935.robot.commands.drive.ExampleCommand;
-import team2935.robot.subsystems.ExampleSubsystem;
+import team2935.robot.subsystems.ChassisSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,8 +22,7 @@ import team2935.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
+	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -37,9 +35,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		Robot.chassisSubsystem.robotInit();
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		//SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
 	/**
@@ -70,7 +68,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		//m_autonomousCommand = m_chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -80,9 +78,9 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
+	/*	if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
-		}
+		}*/
 	}
 
 	/**
@@ -90,7 +88,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
+		//Scheduler.getInstance().run();
 	}
 
 	@Override
@@ -99,9 +97,9 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
+		/*if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
-		}
+		}*/
 	}
 
 	/**
