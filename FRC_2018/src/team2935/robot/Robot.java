@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team2935.robot.subsystems.ChassisSubsystem;
+import team2935.robot.subsystems.IntakeSubsystem;
+import team2935.robot.subsystems.ArmSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +26,9 @@ import team2935.robot.subsystems.ChassisSubsystem;
  */
 public class Robot extends TimedRobot {
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+	public static final ArmSubsystem armSubsystem = new ArmSubsystem();
+	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+
 	public static OI m_oi;
 
 	Command m_autonomousCommand;

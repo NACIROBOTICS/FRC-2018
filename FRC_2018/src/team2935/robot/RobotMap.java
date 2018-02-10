@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package team2935.robot;
 
 /**
@@ -23,10 +16,23 @@ public class RobotMap {
 	public static final int DRIVE_RIGHT_MOTOR2 = 7;
 	public static final int DRIVE_RIGHT_MOTOR3= 8;
 	
-	//SOLENOIDS
+	//SOLENOIDS FOR DRIVETRAIN
 	public static final int SOLENOID_SHIFTER_HIGH = 0;
 	public static final int SOLENOID_SHIFTER_LOW = 1;
 	
+	//ARM
+	public static final int ARM_MOTOR1 = 4;
+	public static final int ARM_MOTOR2 = 5;
+	
+	//INTAKE
+	public static final int INTAKE_MOTOR1 = 9;
+	public static final int INTAKE_MOTOR2 = 10;
+	
+	//ENCODERS 
+	public static final int RIGHT_ENCODER_A = 2;
+	public static final int RIGHT_ENCODER_B = 3;
+	public static final int LEFT_ENCODER_A = 0;
+	public static final int LEFT_ENCODER_B = 1;
 	//USB ports for joy-sticks
 	public static final int DRIVE_CONTROLLER = 0;
 		
