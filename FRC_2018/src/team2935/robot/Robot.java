@@ -7,42 +7,53 @@
 
 package team2935.robot;
 
+import java.util.ArrayList;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team2935.robot.subsystems.ChassisSubsystem;
 import team2935.robot.subsystems.IntakeSubsystem;
+import team2935.robot.commands.auto.GoStaightAndTurnAuto;
 import team2935.robot.subsystems.ArmSubsystem;
 
-
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties file in the
- * project.
- */
 public class Robot extends TimedRobot {
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	public static final ArmSubsystem armSubsystem = new ArmSubsystem();
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-
+   
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	
+	public UsbCamera camera;
+	public static ArrayList<Subsystem> subsystemList = new ArrayList<>();
+
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		Robot.chassisSubsystem.robotInit();
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+		subsystemList.add(chassisSubsystem);
+		subsystemList.add(armSubsystem);
+		subsystemList.add(intakeSubsystem);
+        Robot.chassisSubsystem.robotInit();
+		camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.getVideoMode();
+		camera.setResolution(250, 250);
+		m_chooser.addObject("GoStaightAndTurnAuto", new GoStaightAndTurnAuto());
+		SmartDashboard.putData("Autonomous Selector", m_chooser);
+		//chooser.addObject("My Auto", new MyAutoCommand());
 		//SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -52,12 +63,16 @@ public class Robot extends TimedRobot {
 	 * the robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {
-
-	}
-
+	public void disabledInit() {Robot.chassisSubsystem.resetEncoders();}
+	
 	@Override
 	public void disabledPeriodic() {
+		Robot.chassisSubsystem.resetGyro();
+		Robot.m_oi.updateSmartDashboard();
+		SmartDashboard.putData("Autonomous Selector", m_chooser);
+	    SmartDashboard.putNumber("RightTicks", chassisSubsystem.getRightEncoderDistance());
+	    SmartDashboard.putNumber("LeftTicks", chassisSubsystem.getLeftEncoderDistance());
+	    SmartDashboard.putNumber("Angle",chassisSubsystem.getAngle());
 		Scheduler.getInstance().run();
 	}
 
@@ -74,14 +89,15 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//m_autonomousCommand = m_chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		Robot.chassisSubsystem.resetGyro();
+		m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand.start();
+//		Robot.command.auto.GoStaightAndTurnAuto.start();
+	
+		
+		
+		// case "Default Auto": default:autonomousCommand = new ExampleCommand(); break; }
+		
 
 		// schedule the autonomous command (example)
 	/*	if (m_autonomousCommand != null) {
@@ -94,11 +110,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void teleopInit() {
+		Robot.m_oi.updateSmartDashboard();
+
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -113,13 +131,17 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		Robot.m_oi.updateSmartDashboard();
+		SmartDashboard.putNumber("RightTicks", chassisSubsystem.getRightEncoderDistance());
+	    SmartDashboard.putNumber("LeftTicks", chassisSubsystem.getLeftEncoderDistance());
+	    SmartDashboard.putNumber("Angle",chassisSubsystem.getAngle());
 		Scheduler.getInstance().run();
 	}
 
 	/**
 	 * This function is called periodically during test mode.
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
-	public void testPeriodic() {
-	}
+	public void testPeriodic() {LiveWindow.run();}
 }

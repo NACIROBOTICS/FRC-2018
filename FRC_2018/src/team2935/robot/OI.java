@@ -11,6 +11,8 @@ import com.torontocodingcollective.oi.TAxis;
 import com.torontocodingcollective.oi.TButton;
 import com.torontocodingcollective.oi.TGameController_Logitech;
 import com.torontocodingcollective.oi.TStick;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -36,6 +38,21 @@ public class OI {
 	public boolean getIntakeOut() {return driverController.getButton(TButton.RIGHT_BUMPER);	}
 	
 	public boolean isShifting() {return driverController.getButton(TButton.X);}
+	
+	public boolean OpenIntake() {return driverController.getButton(TButton.START);}
+
+	public boolean closeIntake() {return driverController.getButton(TButton.BACK);}
+
+	
+	 public void updateSmartDashboard(){
+		 SmartDashboard.putString("driverController",driverController.toString());
+		 Robot.chassisSubsystem.updatePeriodic();
+		 Robot.armSubsystem.updatePeriodic();
+		 Robot.intakeSubsystem.updatePeriodic();
+		 SmartDashboard.putNumber("RightTicks", Robot.chassisSubsystem.getRightEncoderDistance());
+		 SmartDashboard.putNumber("LeftTicks", Robot.chassisSubsystem.getLeftEncoderDistance());
+		 SmartDashboard.putNumber("Angle",Robot.chassisSubsystem.getAngle());
+ }
 	
 	
 }
