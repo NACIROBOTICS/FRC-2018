@@ -43,16 +43,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-		subsystemList.add(chassisSubsystem);
-		subsystemList.add(armSubsystem);
-		subsystemList.add(intakeSubsystem);
+//		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+//		subsystemList.add(chassisSubsystem);
+//		subsystemList.add(armSubsystem);
+//		subsystemList.add(intakeSubsystem);
         Robot.chassisSubsystem.robotInit();
 		camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.getVideoMode();
 		camera.setResolution(250, 250);
-		m_chooser.addObject("GoStaightAndTurnAuto", new GoStaightAndTurnAuto());
-		SmartDashboard.putData("Autonomous Selector", m_chooser);
+//		m_chooser.addObject("GoStaightAndTurnAuto", new GoStaightAndTurnAuto());
+//		SmartDashboard.putData("Autonomous Selector", m_chooser);
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		//SmartDashboard.putData("Auto mode", m_chooser);
 	}
@@ -90,8 +90,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Robot.chassisSubsystem.resetGyro();
-		m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand.start();
+//		m_autonomousCommand = m_chooser.getSelected();
+//		m_autonomousCommand.start();
 //		Robot.command.auto.GoStaightAndTurnAuto.start();
 	
 		
@@ -141,7 +141,6 @@ public class Robot extends TimedRobot {
 	/**
 	 * This function is called periodically during test mode.
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
-	public void testPeriodic() {LiveWindow.run();}
+ 	public void testPeriodic() {/*LiveWindow.run();*/}
 }

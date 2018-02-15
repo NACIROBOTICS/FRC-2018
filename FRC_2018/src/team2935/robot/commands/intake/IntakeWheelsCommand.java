@@ -1,12 +1,15 @@
 package team2935.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
-import team2935.robot.Robot;				
+import team2935.robot.Robot;
 
 
 public class IntakeWheelsCommand extends Command {
-
-    public IntakeWheelsCommand() {    	
+ 
+//     enum IntakeState { OPEN, CLOSED };
+//	 public IntakeState Intake = IntakeState.CLOSED;
+	   
+     public IntakeWheelsCommand() {    	
     	requires(Robot.intakeSubsystem);
     }
 
@@ -14,23 +17,32 @@ public class IntakeWheelsCommand extends Command {
     protected void initialize() {}
 
     protected void execute() {
+    	boolean IntakeOpen = false;
+    	//opens Itake
     	boolean openIntake = Robot.m_oi.OpenIntake();
-    //	boolean closeIntake = Robot.m_oi.closeIntake();
-    	boolean IntakeIn = Robot.m_oi.getIntakeIn();
+    	// buttons for intake wheels
+       	boolean IntakeIn = Robot.m_oi.getIntakeIn();
     	boolean IntakeOut = Robot.m_oi.getIntakeOut();
+    	
     	if(IntakeIn){
-    		Robot.intakeSubsystem.runIntake(1);
+    		Robot.intakeSubsystem.runIntake(0.5);
     	}else if(IntakeOut){
     		Robot.intakeSubsystem.runIntake(-0.5);
     	}else{
     		Robot.intakeSubsystem.runIntake(0);
     	} 	
-    	if(!openIntake) {
+    	
+    	
+    	if(openIntake && !IntakeOpen) {
     		Robot.intakeSubsystem.openIntake();	
+    		IntakeOpen=true;
+    	}else if(openIntake && IntakeOpen) {
+            Robot.intakeSubsystem.closeIntake();
+            IntakeOpen=false;
+
     	}
-    	else if(openIntake)
-    		Robot.intakeSubsystem.closeIntake();
     }
+    
     protected boolean isFinished() {return false;}
     
     protected void end() {}

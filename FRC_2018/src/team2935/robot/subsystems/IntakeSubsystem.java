@@ -35,7 +35,7 @@ public class IntakeSubsystem extends  T_Subsystem {
 		intakeOpen.set(false);
 		intakeClose.set(true);
 	}
-
+    
     
     
 	@Override

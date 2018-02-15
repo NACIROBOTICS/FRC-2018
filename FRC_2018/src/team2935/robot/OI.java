@@ -7,10 +7,12 @@
 
 package team2935.robot;
 
+import com.toronto.oi.T_Trigger;
 import com.torontocodingcollective.oi.TAxis;
 import com.torontocodingcollective.oi.TButton;
 import com.torontocodingcollective.oi.TGameController_Logitech;
 import com.torontocodingcollective.oi.TStick;
+import com.torontocodingcollective.oi.TTrigger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -39,9 +41,9 @@ public class OI {
 	
 	public boolean isShifting() {return driverController.getButton(TButton.X);}
 	
-	public boolean OpenIntake() {return driverController.getButton(TButton.START);}
+	public boolean OpenIntake() {return driverController.getButton(TStick.LEFT);}
 
-	public boolean closeIntake() {return driverController.getButton(TButton.BACK);}
+	public boolean closeIntake() {return driverController.getButton(TButton.NINE);}
 
 	
 	 public void updateSmartDashboard(){
