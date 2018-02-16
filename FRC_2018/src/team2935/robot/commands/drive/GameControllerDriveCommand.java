@@ -21,6 +21,7 @@ public class GameControllerDriveCommand extends Command {
         
 		boolean DriveMode = Robot.m_oi.getDriveMode();
         boolean isShifted = Robot.m_oi.isShifting();
+        boolean IsShifted = Robot.m_oi.IsShifting();
 		if(DriveMode && !tank) {
 			i++;
 			tank=true;
@@ -38,12 +39,12 @@ public class GameControllerDriveCommand extends Command {
 		
 		
 		
-		if(isShifted && !Shifted) 
+		if(isShifted && IsShifted) 
 		{
-			Robot.chassisSubsystem.setShifter();
-			Shifted = true;
+			Robot.chassisSubsystem.shiftHigh();
+			
 		}
-		else if (!isShifted && Shifted) Shifted = false;
+		else Robot.chassisSubsystem.shiftLow();
 		
 
 		//if(FowardSpeed > 0.90 || rightSpeed > 0.90 && leftSpeed > 0.90 ) 

@@ -89,6 +89,12 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 			rightMotor3.set(speed);
 		}		
 		
+		public void setDifferentMotorSpeeds(double leftSpeed, double rightSpeed) {
+			setRightMotorSpeeds(leftSpeed);
+			setLeftMotorSpeeds(rightSpeed);
+
+		}
+		
 		public void resetEncoders(){
 			leftEncoder.reset();
 			rightEncoder.reset();
@@ -103,11 +109,11 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 				shifterState = States.LOW;
 			}
 		}
-		public void shiftHigh() {
+		public void shiftLow() {
 			shifterHigh.set(true);
 			shifterLow.set(false);
 		}
-		public void shiftLow() {
+		public void shiftHigh() {
 			shifterHigh.set(false);
 			shifterLow.set(true);
 		}
@@ -115,6 +121,8 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 		 	SmartDashboard.putData("Gyro", gyro);
 	    	SmartDashboard.putNumber("Gyro", getAngle());
 	    	SmartDashboard.putNumber("Gyro rate", gyro.getRate());
+	    	SmartDashboard.putNumber("RightTicks", getRightEncoderDistance());
+		    SmartDashboard.putNumber("LeftTicks", getLeftEncoderDistance());
 	    	//SmartDashboard.putNumber("Velocity",getVelocity());
 	    	//SmartDashboard.putString("Transmission", transmissionState.toString());
 	    	//SmartDashboard.putString("Robot Direction", robotDirection.toString());

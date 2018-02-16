@@ -2,10 +2,12 @@
 package team2935.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
+import team2935.PID.GyroPIDController;
 import team2935.robot.Robot;
 import team2935.robot.RobotConst;
 
 public class DriveToDistanceOnHeading extends Command {
+	private GyroPIDController pidController;
 	private double encoderDistance;
 	private double setSpeed;
 	private double timeout;
@@ -13,9 +15,11 @@ public class DriveToDistanceOnHeading extends Command {
 	
     public DriveToDistanceOnHeading(double distance, double speed, double timeout) {
         requires(Robot.chassisSubsystem);
-        this.encoderDistance = Math.abs(distance) * RobotConst.DRIVE_ENCODER_COUNTS_PER_FT;
+        this.encoderDistance = Math.abs(distance) 
+        		* RobotConst.DRIVE_ENCODER_COUNTS_PER_FT;
         this.setSpeed        = speed;
         this.timeout         = timeout;
+        pidController = new GyroPIDController(setSpeed);
     }
 
     // Called just before this Command runs the first time
@@ -27,6 +31,7 @@ public class DriveToDistanceOnHeading extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	pidController.adjustAngle(targetAngle, Robot.chassisSubsystem.getAngle());
     	Robot.chassisSubsystem.setAllMotorSpeeds(setSpeed);
     }
 
@@ -35,6 +40,9 @@ public class DriveToDistanceOnHeading extends Command {
     	
     	// Check for a timeout before the distance
     	if (timeSinceInitialized() > timeout) { return true; }
+    	
+    	// Look for joy-stick movement and then end
+    //	if (Robot.m_oi.isDriverAction()) { return true; }
     	
     	return Math.abs(Robot.chassisSubsystem.getEncoderDistance()) >= encoderDistance;
     }

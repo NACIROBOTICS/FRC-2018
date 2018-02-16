@@ -43,18 +43,19 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-//		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-//		subsystemList.add(chassisSubsystem);
-//		subsystemList.add(armSubsystem);
-//		subsystemList.add(intakeSubsystem);
+		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+		subsystemList.add(chassisSubsystem);
+		subsystemList.add(armSubsystem);
+		subsystemList.add(intakeSubsystem);
         Robot.chassisSubsystem.robotInit();
 		camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.getVideoMode();
 		camera.setResolution(250, 250);
-//		m_chooser.addObject("GoStaightAndTurnAuto", new GoStaightAndTurnAuto());
-//		SmartDashboard.putData("Autonomous Selector", m_chooser);
-		//chooser.addObject("My Auto", new MyAutoCommand());
-		//SmartDashboard.putData("Auto mode", m_chooser);
+		m_chooser.addDefault("Default", new GoStaightAndTurnAuto());
+		m_chooser.addObject("GoStaightAndTurnAuto", new GoStaightAndTurnAuto());
+		SmartDashboard.putData("Autonomous Selector", m_chooser);
+		SmartDashboard.putString("sentence", "hello");
+
 	}
 
 	/**
@@ -70,9 +71,6 @@ public class Robot extends TimedRobot {
 		Robot.chassisSubsystem.resetGyro();
 		Robot.m_oi.updateSmartDashboard();
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
-	    SmartDashboard.putNumber("RightTicks", chassisSubsystem.getRightEncoderDistance());
-	    SmartDashboard.putNumber("LeftTicks", chassisSubsystem.getLeftEncoderDistance());
-	    SmartDashboard.putNumber("Angle",chassisSubsystem.getAngle());
 		Scheduler.getInstance().run();
 	}
 
@@ -90,19 +88,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Robot.chassisSubsystem.resetGyro();
-//		m_autonomousCommand = m_chooser.getSelected();
-//		m_autonomousCommand.start();
-//		Robot.command.auto.GoStaightAndTurnAuto.start();
-	
-		
-		
-		// case "Default Auto": default:autonomousCommand = new ExampleCommand(); break; }
-		
-
+		m_autonomousCommand = m_chooser.getSelected();		
 		// schedule the autonomous command (example)
-	/*	if (m_autonomousCommand != null) {
+	if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
-		}*/
+		}
 	}
 
 	/**
@@ -132,9 +122,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Robot.m_oi.updateSmartDashboard();
-		SmartDashboard.putNumber("RightTicks", chassisSubsystem.getRightEncoderDistance());
-	    SmartDashboard.putNumber("LeftTicks", chassisSubsystem.getLeftEncoderDistance());
-	    SmartDashboard.putNumber("Angle",chassisSubsystem.getAngle());
 		Scheduler.getInstance().run();
 	}
 

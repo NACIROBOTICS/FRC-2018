@@ -9,6 +9,6 @@ public class GoStaightAndTurnAuto extends CommandGroup {
 
     public GoStaightAndTurnAuto() {
     	addSequential(new DriveToDistanceOnHeading(5.7,0.5,3));
-    	addSequential(new AutoTurnToAngle(90));
+    	addSequential(new TurnToAngle(90,2));
     }
 }

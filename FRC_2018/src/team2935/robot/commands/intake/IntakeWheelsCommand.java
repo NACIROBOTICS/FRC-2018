@@ -16,15 +16,18 @@ public class IntakeWheelsCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {}
 
-    protected void execute() {
-    	boolean IntakeOpen = false;
-    	//opens Itake
-    	boolean openIntake = Robot.m_oi.OpenIntake();
+    protected void execute() {    	
     	// buttons for intake wheels
        	boolean IntakeIn = Robot.m_oi.getIntakeIn();
     	boolean IntakeOut = Robot.m_oi.getIntakeOut();
     	
-    	if(IntakeIn){
+    	if(IntakeIn && IntakeOut) {
+    		Robot.intakeSubsystem.closeIntake();	
+      	}else { 
+            Robot.intakeSubsystem.openIntake();
+            }
+    	
+    	if(!IntakeOut && IntakeIn){
     		Robot.intakeSubsystem.runIntake(0.5);
     	}else if(IntakeOut){
     		Robot.intakeSubsystem.runIntake(-0.5);
@@ -33,14 +36,10 @@ public class IntakeWheelsCommand extends Command {
     	} 	
     	
     	
-    	if(openIntake && !IntakeOpen) {
-    		Robot.intakeSubsystem.openIntake();	
-    		IntakeOpen=true;
-    	}else if(openIntake && IntakeOpen) {
-            Robot.intakeSubsystem.closeIntake();
-            IntakeOpen=false;
-
-    	}
+    	
+    	
+    	
+    	
     }
     
     protected boolean isFinished() {return false;}
