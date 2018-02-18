@@ -13,8 +13,8 @@ import team2935.robot.commands.intake.IntakeWheelsCommand;
  */
 public class IntakeSubsystem extends  T_Subsystem {
 
-	private VictorSP IntakeMotor1 = new VictorSP(RobotMap.INTAKE_MOTOR1);
-	private VictorSP IntakeMotor2 = new VictorSP(RobotMap.INTAKE_MOTOR2);
+	private VictorSP intakeMotor1 = new VictorSP(RobotMap.INTAKE_MOTOR1);
+	private VictorSP intakeMotor2 = new VictorSP(RobotMap.INTAKE_MOTOR2);
 	private Solenoid intakeOpen = new Solenoid(RobotMap.SOLENOID_INTAKE_CLOSE);
 	private Solenoid intakeClose = new Solenoid(RobotMap.SOLENOID_INTAKE_OPEN);
 
@@ -24,9 +24,14 @@ public class IntakeSubsystem extends  T_Subsystem {
     
     public void runIntake(double speed)
 	{
-		IntakeMotor1.set(speed);
-		IntakeMotor2.set(-speed);
+		intakeMotor1.set(speed);
+		intakeMotor2.set(-speed);
 	}
+    public void spinCube(double speed) 
+    {
+    	intakeMotor1.set(speed);
+		intakeMotor2.set(speed);	
+    }
     public void openIntake() {
 		intakeOpen.set(true);
 		intakeClose.set(false);

@@ -29,27 +29,24 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 		public enum States {HIGH,LOW};
 		
 		private States shifterState = States.LOW;
+
+		boolean leftDirection = leftEncoder.getDirection();
+		boolean rightDirection = rightEncoder.getDirection();
+		
+		public void initDefaultCommand() {setDefaultCommand(new GameControllerDriveCommand());}
 		
 		//Gives left encoder values
 		public double getLeftEncoderDistance(){
 			return leftEncoder.getDistance();
-			}
-		
-		
-		boolean leftDirection = leftEncoder.getDirection();
-		
+	    }
+	
 		//Gives right encoder values
 		public double getRightEncoderDistance(){
 			return rightEncoder.getDistance();
-			}
-		public double getEncoderDistance() {
-			return (rightEncoder.getDistance()+leftEncoder.getDistance())/2;
-			
 		}
-		
-		boolean rightDirection = rightEncoder.getDirection();
-		
-		public void initDefaultCommand() {setDefaultCommand(new GameControllerDriveCommand());}
+		public double getEncoderDistance() {
+			return (rightEncoder.getDistance()+leftEncoder.getDistance())/2;	
+		}
 	
 		public double getAngle(){
 			double angle = gyro.getAngle() % 360;
@@ -61,7 +58,7 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 		
 		public void resetGyro(){
 	     	gyro.reset();
-	     	}
+	    }
 
 		public void robotInit(){
 			rightMotor1.setInverted(true);
@@ -70,12 +67,13 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 			
 		} 
 		public void setAllMotorSpeeds(double speed) {
-			leftMotor1.set(speed);
-			leftMotor2.set(speed);
-			leftMotor3.set(speed);
-			rightMotor1.set(speed);
-			rightMotor2.set(speed);
-			rightMotor3.set(speed);
+			setLeftMotorSpeeds(speed);
+			setRightMotorSpeeds(speed);
+		}
+
+		public void setDifferentMotorSpeeds(double leftSpeed, double rightSpeed) {
+			setRightMotorSpeeds(leftSpeed);
+			setLeftMotorSpeeds(rightSpeed);
 		}
 		
 		public void setLeftMotorSpeeds(double speed){
@@ -89,17 +87,10 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 			rightMotor3.set(speed);
 		}		
 		
-		public void setDifferentMotorSpeeds(double leftSpeed, double rightSpeed) {
-			setRightMotorSpeeds(leftSpeed);
-			setLeftMotorSpeeds(rightSpeed);
-
-		}
-		
 		public void resetEncoders(){
 			leftEncoder.reset();
 			rightEncoder.reset();
 		}
-		
 		public void setShifter() {
 			if(shifterState.equals(States.LOW)) {
 				shiftHigh();
@@ -123,8 +114,6 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 	    	SmartDashboard.putNumber("Gyro rate", gyro.getRate());
 	    	SmartDashboard.putNumber("RightTicks", getRightEncoderDistance());
 		    SmartDashboard.putNumber("LeftTicks", getLeftEncoderDistance());
-	    	//SmartDashboard.putNumber("Velocity",getVelocity());
-	    	//SmartDashboard.putString("Transmission", transmissionState.toString());
 	    	//SmartDashboard.putString("Robot Direction", robotDirection.toString());
 		}
 

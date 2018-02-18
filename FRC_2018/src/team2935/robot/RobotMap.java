@@ -21,9 +21,7 @@ public class RobotMap {
 	public static final int SOLENOID_SHIFTER_LOW = 1;
 	
 	//ARM
-	public static final int ARM_MOTOR1 = 0;
-	public static final int ARM_MOTOR2 = 5;
-	
+	public static final int ARM_MOTOR1 = 0;	
 	//INTAKE
 	public static final int INTAKE_MOTOR1 = 9;
 	public static final int INTAKE_MOTOR2 = 4;
@@ -38,5 +36,6 @@ public class RobotMap {
 	//SOLENOIDS FOR DRIVETRAIN
 	public static final int SOLENOID_INTAKE_OPEN = 2;
 	public static final int SOLENOID_INTAKE_CLOSE = 3;
-		
+	//LIMIT SWITCH
+	public static final int LIMIT_SWITCH = 4;
 }

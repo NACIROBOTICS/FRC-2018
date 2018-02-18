@@ -11,6 +11,7 @@ import com.torontocodingcollective.oi.TAxis;
 import com.torontocodingcollective.oi.TButton;
 import com.torontocodingcollective.oi.TGameController_Logitech;
 import com.torontocodingcollective.oi.TStick;
+import com.torontocodingcollective.oi.TTrigger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -21,38 +22,38 @@ public class OI {
 	public TGameController_Logitech driverController;
 		 
 	public OI(){driverController = new TGameController_Logitech(RobotMap.DRIVE_CONTROLLER);}
+	
 	//tank
 	public double getLeftDriveSpeed(){return driverController.getAxis(TStick.LEFT, TAxis.Y);}
 	public double getRightDriveSpeed(){return driverController.getAxis(TStick.RIGHT, TAxis.Y);}
+	
 	//arcade
 	public double getFowardDriveSpeed(){return driverController.getAxis(TStick.LEFT, TAxis.Y);}
 	public double getTurnDriveSpeed(){return driverController.getAxis(TStick.LEFT, TAxis.X);}
 	
 	public boolean getDriveMode(){return driverController.getButton(TButton.Y);}
 	
-	public boolean getArmUp(){return driverController.getButton(TButton.B);}
+	public boolean getArmUp(){return driverController.getButton(TTrigger.RIGHT);}
 	
-	public boolean getArmDown(){return driverController.getButton(TButton.A);}
+	public boolean getArmDown(){return driverController.getButton(TTrigger.LEFT);}
 	
 	public boolean getIntakeIn() {return driverController.getButton(TButton.LEFT_BUMPER);}
 	
 	public boolean getIntakeOut() {return driverController.getButton(TButton.RIGHT_BUMPER);	}
 	
-	public boolean isShifting() {return driverController.getButton(TStick.LEFT);}
+	public boolean getSpinIntake() {return driverController.getButton(TButton.A);}
 	
 	//public boolean OpenIntake() {return driverController.}
-
-	public boolean IsShifting() {return driverController.getButton(TStick.RIGHT);}
+	
+	public boolean isLeftShifter() {return driverController.getButton(TStick.LEFT);}
+	
+	public boolean isRightShifter() {return driverController.getButton(TStick.RIGHT);}
 
 	
 	 public void updateSmartDashboard(){
-		 SmartDashboard.putString("driverController",driverController.toString());
 		 Robot.chassisSubsystem.updatePeriodic();
 		 Robot.armSubsystem.updatePeriodic();
 		 Robot.intakeSubsystem.updatePeriodic();
-		 SmartDashboard.putNumber("RightTicks", Robot.chassisSubsystem.getRightEncoderDistance());
-		 SmartDashboard.putNumber("LeftTicks", Robot.chassisSubsystem.getLeftEncoderDistance());
-		 SmartDashboard.putNumber("Angle",Robot.chassisSubsystem.getAngle());
  }
 	
 	

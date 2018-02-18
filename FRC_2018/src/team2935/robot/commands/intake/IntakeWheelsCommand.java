@@ -18,27 +18,25 @@ public class IntakeWheelsCommand extends Command {
 
     protected void execute() {    	
     	// buttons for intake wheels
-       	boolean IntakeIn = Robot.m_oi.getIntakeIn();
-    	boolean IntakeOut = Robot.m_oi.getIntakeOut();
+    	boolean spinIntake = Robot.m_oi.getSpinIntake();
+       	boolean intakeIn = Robot.m_oi.getIntakeIn();
+    	boolean intakeOut = Robot.m_oi.getIntakeOut();
     	
-    	if(IntakeIn && IntakeOut) {
+    	if(intakeIn && intakeOut) {
     		Robot.intakeSubsystem.closeIntake();	
       	}else { 
             Robot.intakeSubsystem.openIntake();
-            }
+        }
     	
-    	if(!IntakeOut && IntakeIn){
-    		Robot.intakeSubsystem.runIntake(0.5);
-    	}else if(IntakeOut){
+    	if(intakeOut){
+    		Robot.intakeSubsystem.runIntake(1);
+    	}else if(!intakeOut && intakeIn){
     		Robot.intakeSubsystem.runIntake(-0.5);
-    	}else{
+    	}else if(spinIntake) {
+    		Robot.intakeSubsystem.spinCube(0.3);
+    	}else {
     		Robot.intakeSubsystem.runIntake(0);
     	} 	
-    	
-    	
-    	
-    	
-    	
     	
     }
     

@@ -15,13 +15,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import team2935.robot.subsystems.ChassisSubsystem;
-import team2935.robot.subsystems.IntakeSubsystem;
+import team2935.robot.commands.auto.AutoFinder;
 import team2935.robot.commands.auto.GoStaightAndTurnAuto;
 import team2935.robot.subsystems.ArmSubsystem;
+import team2935.robot.subsystems.ChassisSubsystem;
+import team2935.robot.subsystems.IntakeSubsystem;
 
 public class Robot extends TimedRobot {
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
@@ -32,6 +32,10 @@ public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<String> side_chooser = new SendableChooser<>();
+    AutoFinder autoFinder;
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -44,18 +48,33 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-		subsystemList.add(chassisSubsystem);
-		subsystemList.add(armSubsystem);
-		subsystemList.add(intakeSubsystem);
-        Robot.chassisSubsystem.robotInit();
+		
 		camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.getVideoMode();
 		camera.setResolution(250, 250);
-		m_chooser.addDefault("Default", new GoStaightAndTurnAuto());
-		m_chooser.addObject("GoStaightAndTurnAuto", new GoStaightAndTurnAuto());
+		
+		subsystemList.add(chassisSubsystem);
+		subsystemList.add(armSubsystem);
+		subsystemList.add(intakeSubsystem);
+        
+		Robot.chassisSubsystem.robotInit();
+		
+		side_chooser.addDefault("Left", "Left");
+		side_chooser.addDefault("Center", "Center");
+		side_chooser.addDefault("Right", "Right");
+        SmartDashboard.putData("Postion", side_chooser);
+        
+//		m_chooser.addDefault("Default", new GoStaightAndTurnAuto());
+//		m_chooser.addObject("GoStaightAndTurnAuto", new GoStaightAndTurnAuto());
+//		m_chooser.addObject("(LeftSide) LeftSwitchAuto", new LSLeftSwitchAuto());
+//		m_chooser.addObject("(LeftSide) RightSwitchAuto", new LSRightSwitchAuto());
+//		m_chooser.addObject("(Center) LeftSwitchAuto", new CSLeftSwitchAuto());
+//		m_chooser.addObject("(Center) RightSwitchAuto", new CSRightSwitchAuto());
+//		m_chooser.addObject("(Right) LeftSwitchAuto", new RSLeftSwitchAuto());
+//		m_chooser.addObject("(Right) RightSwitchAuto", new RSRightSwitchAuto());
+//		m_chooser.addObject("(AnyWhere) CrossAutoLine", new CrossLineAuto());
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
-		SmartDashboard.putString("sentence", "hello");
-
+		SmartDashboard.putString("Auto Command Running: ", "Null");
 	}
 
 	/**
@@ -70,7 +89,6 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Robot.chassisSubsystem.resetGyro();
 		Robot.m_oi.updateSmartDashboard();
-		SmartDashboard.putData("Autonomous Selector", m_chooser);
 		Scheduler.getInstance().run();
 	}
 
@@ -88,9 +106,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Robot.chassisSubsystem.resetGyro();
-		m_autonomousCommand = m_chooser.getSelected();		
+		m_autonomousCommand = autoFinder.getAuto(side_chooser.getSelected().charAt(0));		
+		SmartDashboard.putString("Auto Command Running: ", "Hello");
 		// schedule the autonomous command (example)
-	if (m_autonomousCommand != null) {
+		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
 	}
@@ -100,17 +119,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putString("Auto Command Running: ","Hello");
 		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void teleopInit() {
 		Robot.m_oi.updateSmartDashboard();
-
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		/*if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}*/

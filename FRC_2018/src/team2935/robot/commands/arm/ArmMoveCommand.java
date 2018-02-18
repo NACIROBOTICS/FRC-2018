@@ -14,14 +14,15 @@ public class ArmMoveCommand extends Command {
     protected void initialize() {}
 
     protected void execute() {
-    	boolean ArmUp = Robot.m_oi.getArmUp();
-    	boolean ArmDown = Robot.m_oi.getArmDown();
-    	if(ArmUp){
-    		Robot.armSubsystem.runArm(0.5);
-    	}else if(ArmDown){
-    		Robot.armSubsystem.runArm(-0.5);
+    	boolean armUp = Robot.m_oi.getArmUp();
+    	boolean armDown = Robot.m_oi.getArmDown();
+    	if(armUp){
+    		Robot.armSubsystem.runArmDown(0.35);
+    	}else if(armDown){
+    		Robot.armSubsystem.runArmUp(0.5);
     	}else{
-    		Robot.armSubsystem.runArm(0);
+    		Robot.armSubsystem.runArmDown(0);
+    		Robot.armSubsystem.runArmUp(0);
     	} 	
     }
     protected boolean isFinished() {return false;}
