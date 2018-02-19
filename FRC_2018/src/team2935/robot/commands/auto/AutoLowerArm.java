@@ -6,40 +6,26 @@ import team2935.robot.Robot;
 /**
  *
  */
-
-
-public class AutoTurnToAngle extends Command {
-	private double targetAngle;
-
-    public AutoTurnToAngle(double targetAngle) {
-    	requires(Robot.chassisSubsystem);
-    	 this.targetAngle = targetAngle;
-    	 
+public class AutoLowerArm extends Command {
+   
+	double Timeout;
+	
+    public AutoLowerArm(double Timeout) {
+       requires(Robot.armSubsystem);
+       this.Timeout = Timeout;
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {Robot.chassisSubsystem.resetGyro();}
+    protected void initialize() {}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(targetAngle>180) {
-    	Robot.chassisSubsystem.setLeftMotorSpeeds(0.5);
-    	Robot.chassisSubsystem.setRightMotorSpeeds(-0.5);
-    	}
-    	else if(targetAngle<180) {
-    		Robot.chassisSubsystem.setLeftMotorSpeeds(-0.5);
-        	Robot.chassisSubsystem.setRightMotorSpeeds(0.5);
-    		
-    	}
-     }
-    
-    	
-    
-    	
-    
+    	Robot.armSubsystem.runArmDown(0.25);
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	if(timeSinceInitialized()>Timeout) {return true;}
         return false;
     }
 
