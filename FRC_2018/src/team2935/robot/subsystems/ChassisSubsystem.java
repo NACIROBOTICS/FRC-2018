@@ -22,7 +22,7 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 		private Solenoid shifterLow = new Solenoid(RobotMap.SOLENOID_SHIFTER_LOW);
 		//Encoders
 		private Encoder leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_A,  RobotMap.LEFT_ENCODER_B);
-		private Encoder rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_A,RobotMap.RIGHT_ENCODER_B  ,true);
+		private Encoder rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_A,RobotMap.RIGHT_ENCODER_B ,true);
 		//GYRO 
 		private AHRS gyro = new AHRS(SerialPort.Port.kUSB);		
 		
@@ -61,6 +61,7 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 	    }
 
 		public void robotInit(){
+			resetGyro();
 			rightMotor1.setInverted(true);
 			rightMotor2.setInverted(true);
 			rightMotor3.setInverted(true);
@@ -109,11 +110,9 @@ import team2935.robot.commands.drive.GameControllerDriveCommand;
 			shifterLow.set(true);
 		}
 		public void updatePeriodic() {
-		 	SmartDashboard.putData("Gyro", gyro);
+		 	//SmartDashboard.putData("Gyro", gyro);
 	    	SmartDashboard.putNumber("Gyro", getAngle());
 	    	SmartDashboard.putNumber("Gyro rate", gyro.getRate());
-	    	SmartDashboard.putNumber("RightTicks", getRightEncoderDistance());
-		    SmartDashboard.putNumber("LeftTicks", getLeftEncoderDistance());
 	    	//SmartDashboard.putString("Robot Direction", robotDirection.toString());
 		}
 

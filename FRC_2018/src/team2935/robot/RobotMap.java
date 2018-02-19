@@ -22,20 +22,24 @@ public class RobotMap {
 	
 	//ARM
 	public static final int ARM_MOTOR1 = 0;	
+	
 	//INTAKE
-	public static final int INTAKE_MOTOR1 = 9;
 	public static final int INTAKE_MOTOR2 = 4;
+	public static final int INTAKE_MOTOR1 = 9;
 	
 	//ENCODERS 
-	public static final int RIGHT_ENCODER_A = 2;
-	public static final int RIGHT_ENCODER_B = 3;
 	public static final int LEFT_ENCODER_A = 0;
 	public static final int LEFT_ENCODER_B = 1;
+	public static final int RIGHT_ENCODER_A = 2;
+	public static final int RIGHT_ENCODER_B = 3;
+	
 	//USB ports for joy-sticks
 	public static final int DRIVE_CONTROLLER = 0;
-	//SOLENOIDS FOR DRIVETRAIN
+	
+	//SOLENOIDS FOR INTAKE
 	public static final int SOLENOID_INTAKE_OPEN = 2;
 	public static final int SOLENOID_INTAKE_CLOSE = 3;
+	
 	//LIMIT SWITCH
 	public static final int LIMIT_SWITCH = 4;
 }

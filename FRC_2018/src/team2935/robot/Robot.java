@@ -11,14 +11,16 @@ import java.util.ArrayList;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team2935.oi.OI;
 import team2935.robot.commands.auto.AutoFinder;
-import team2935.robot.commands.auto.GoStaightAndTurnAuto;
+import team2935.robot.commands.auto.AutoRaiseArm;
 import team2935.robot.subsystems.ArmSubsystem;
 import team2935.robot.subsystems.ChassisSubsystem;
 import team2935.robot.subsystems.IntakeSubsystem;
@@ -74,7 +76,6 @@ public class Robot extends TimedRobot {
 //		m_chooser.addObject("(Right) RightSwitchAuto", new RSRightSwitchAuto());
 //		m_chooser.addObject("(AnyWhere) CrossAutoLine", new CrossLineAuto());
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
-		SmartDashboard.putString("Auto Command Running: ", "Null");
 	}
 
 	/**
@@ -87,7 +88,6 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void disabledPeriodic() {
-		Robot.chassisSubsystem.resetGyro();
 		Robot.m_oi.updateSmartDashboard();
 		Scheduler.getInstance().run();
 	}
@@ -105,10 +105,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		Robot.chassisSubsystem.resetGyro();
-		m_autonomousCommand = autoFinder.getAuto(side_chooser.getSelected().charAt(0));		
-		SmartDashboard.putString("Auto Command Running: ", "Hello");
-		// schedule the autonomous command (example)
+		m_autonomousCommand = autoFinder.getAuto(side_chooser.getSelected().charAt(0));
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
@@ -119,7 +116,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		SmartDashboard.putString("Auto Command Running: ","Hello");
+		SmartDashboard.putString("Auto Command Running: ", String.valueOf(m_autonomousCommand == null));
+		Robot.m_oi.updateSmartDashboard();
 		Scheduler.getInstance().run();
 	}
 
