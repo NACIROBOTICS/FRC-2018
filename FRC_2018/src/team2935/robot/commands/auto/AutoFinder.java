@@ -1,44 +1,125 @@
 package team2935.robot.commands.auto;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import team2935.robot.Robot;
 
 public class AutoFinder extends CommandGroup{
 	
-	
-	public Command getAuto(char position){
+	public AutoFinder(char robotSide) {
+		char switch_side = Robot.m_oi.getSwitchSide();
+		char robot_position = robotSide;
 		
-	String gameData;
-	gameData = DriverStation.getInstance().getGameSpecificMessage();
-	char switch_side = gameData.charAt(0);
-	
-	switch(position) {
+		switch(robot_position) {
 		case 'L':
 			switch(switch_side) {
 				case 'L':
-					return new LSLeftSwitchAuto();
+			    	addSequential(new DriveToDistanceOnHeading(15,0.6,3));
+			    	addSequential(new TurnToAngle(90,1.5));
+			    	addSequential(new DriveToDistanceOnHeading(1.5,0.6,1.5));
+			    	addSequential(new AutoOuttakeCube(1));
+			    	addSequential(new DriveToDistanceOnHeading(-1.5,0.6,1.5));
+			    	addSequential(new TurnToAngle(-90,2));
+			    	addParallel(new AutoLowerArm(0.5));
+			    	addSequential(new DriveToDistanceOnHeading(2,0.6,1));
+			    	addSequential(new TurnToAngle(45,1));
+			    	addSequential(new DriveToDistanceOnHeading(4,0.6,1.5));
+			    	addParallel(new AutoIntakeCube(1.5));
+			    	addSequential(new DriveToDistanceOnHeading(1,0.6,0.5));
+			    	addSequential(new AutoOuttakeCube(0.5));
 				case 'R':
-					return new LSRightSwitchAuto();
+			    	addSequential(new DriveToDistanceOnHeading(17,0.7,3));
+			    	addSequential(new TurnToAngle(90,1.25));
+			    	addSequential(new DriveToDistanceOnHeading(17,0.7,3));
+			    	addSequential(new TurnToAngle(90,1.25));
+			        addParallel(new AutoRaiseArm(0.5));
+			    	addSequential(new DriveToDistanceOnHeading(2,0.6,1));
+			    	addSequential(new AutoOuttakeCube(0.5));
+			    	addSequential(new DriveToDistanceOnHeading(-2,0.6,1));
+			    	addSequential(new TurnToAngle(45,0.75));
+			    	addParallel(new AutoLowerArm(0.5));
+			    	addSequential(new DriveToDistanceOnHeading(4,0.6,1.5));
+			    	addParallel(new AutoIntakeCube(1.5));
+			    	addSequential(new TurnToAngle(-45,0.75));
+			    	addSequential(new DriveToDistanceOnHeading(2,0.7,0.75));
+			    	addSequential(new AutoOuttakeCube(0.25));
 			}
 			
 		case 'R':
 			switch(switch_side) {
 				case 'L':
-					return new RSLeftSwitchAuto();
+			    	addSequential(new DriveToDistanceOnHeading(17,0.7,3));
+			    	addSequential(new TurnToAngle(-90,1.25));
+			    	addSequential(new DriveToDistanceOnHeading(17,0.7,3));
+			    	addSequential(new TurnToAngle(-90,1.25));
+			        addParallel(new AutoRaiseArm(0.5));
+			    	addSequential(new DriveToDistanceOnHeading(2,0.6,1));
+			    	addSequential(new AutoOuttakeCube(0.5));
+			    	addSequential(new DriveToDistanceOnHeading(-2,0.6,1));
+			    	addSequential(new TurnToAngle(-45,0.75));
+			    	addParallel(new AutoLowerArm(0.5));
+			    	addSequential(new DriveToDistanceOnHeading(4,0.6,1.5));
+			    	addParallel(new AutoIntakeCube(1.5));
+			    	addSequential(new TurnToAngle(45,0.75));
+			    	addSequential(new DriveToDistanceOnHeading(2,0.7,0.75));
+			    	addSequential(new AutoOuttakeCube(0.25));
 				case 'R':
-					return new RSRightSwitchAuto();
+					addSequential(new DriveToDistanceOnHeading(15,0.6,3));
+			    	addSequential(new TurnToAngle(-90,1.5));
+			    	addParallel(new AutoRaiseArm(1));
+			    	addSequential(new DriveToDistanceOnHeading(1.5,0.6,1.5));
+			    	addSequential(new AutoOuttakeCube(1));
+			    	addSequential(new DriveToDistanceOnHeading(-1.5,0.6,1.5));
+			    	addSequential(new TurnToAngle(90,2));
+			    	addParallel(new AutoLowerArm(0.5));
+			    	addSequential(new DriveToDistanceOnHeading(2,0.6,1));
+			    	addSequential(new TurnToAngle(-45,1));
+			    	addSequential(new DriveToDistanceOnHeading(4,0.6,1.5));
+			    	addParallel(new AutoIntakeCube(1.5));
+			    	addSequential(new DriveToDistanceOnHeading(1,0.6,0.5));
+			    	addSequential(new AutoOuttakeCube(0.5));
 		}
 			
 		case 'C':
 			switch(switch_side) {
 			case 'L':
-				return new CSLeftSwitchAuto();
+				addSequential(new DriveToDistanceOnHeading(6,0.6,1.5));
+		    	addSequential(new TurnToAngle(-90,1.5));   	
+		    	addSequential(new DriveToDistanceOnHeading(5,0.6,1));
+		    	addSequential(new TurnToAngle(90,1.5));
+		    	addParallel(new AutoRaiseArm(0.5)); 
+		    	addSequential(new DriveToDistanceOnHeading(2.5,0.6,1));
+		    	addSequential(new AutoOuttakeCube(0.5));
+		    	addSequential(new DriveToDistanceOnHeading(-1,0.6,0.5));    	
+		    	addSequential(new TurnToAngle(90,1.5));
+		        addParallel(new AutoLowerArm(0.5));
+		        addSequential(new DriveToDistanceOnHeading(4,0.6,1.5));
+		    	addParallel(new AutoIntakeCube(1.5));
+		    	addSequential(new DriveToDistanceOnHeading(-4,0.6,1.5));
+		    	addParallel(new AutoRaiseArm(0.5));    	
+		    	addSequential(new TurnToAngle(-90,1.5));
+		    	addSequential(new DriveToDistanceOnHeading(1,0.6,0.5));
+		    	addSequential(new AutoOuttakeCube(0.5));
 			case 'R':
-				return new CSRightSwitchAuto();
-			}
-    }
-   	return new CrossLineAuto();      
-	          
+				addSequential(new DriveToDistanceOnHeading(6,0.6,1.5));
+		    	addSequential(new TurnToAngle(90,1.5));   	
+		    	addSequential(new DriveToDistanceOnHeading(5,0.6,1));
+		    	addSequential(new TurnToAngle(-90,1.5));
+		    	addParallel(new AutoRaiseArm(0.5)); 
+		    	addSequential(new DriveToDistanceOnHeading(2.5,0.6,1));
+		    	addSequential(new AutoOuttakeCube(0.5));
+		    	addSequential(new DriveToDistanceOnHeading(-1,0.6,0.5));    	
+		    	addSequential(new TurnToAngle(-90,1.5));
+		        addParallel(new AutoLowerArm(0.5));
+		        addSequential(new DriveToDistanceOnHeading(4,0.6,1.5));
+		    	addParallel(new AutoIntakeCube(1.5));
+		    	addSequential(new DriveToDistanceOnHeading(-4,0.6,1.5));
+		    	addParallel(new AutoRaiseArm(0.5));    	
+		    	addSequential(new TurnToAngle(90,1.5));
+		    	addSequential(new DriveToDistanceOnHeading(1,0.6,0.5));
+		    	addSequential(new AutoOuttakeCube(0.5));
+			}	
+		
+		
+	}	          
   }
 }

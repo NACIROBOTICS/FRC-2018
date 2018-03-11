@@ -13,6 +13,7 @@ import com.torontocodingcollective.oi.TGameController_Logitech;
 import com.torontocodingcollective.oi.TStick;
 import com.torontocodingcollective.oi.TTrigger;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import team2935.robot.Robot;
 import team2935.robot.RobotMap;
 
@@ -26,7 +27,15 @@ public class OI {
 	public OI() {
 		driverController = new TGameController_Logitech(RobotMap.DRIVE_CONTROLLER);
 	}
-
+	public char getSwitchSide() {
+		return DriverStation.getInstance().getGameSpecificMessage().charAt(0);
+	}
+	public char getScaleSide() {
+		return DriverStation.getInstance().getGameSpecificMessage().charAt(1);
+	}
+	public char getOppSwitchSide() {
+		return DriverStation.getInstance().getGameSpecificMessage().charAt(2);
+	}
 	// tank
 	public double getLeftDriveSpeed() {
 		return driverController.getAxis(TStick.RIGHT, TAxis.Y); //NOT MISTAKE DONT CHANGE

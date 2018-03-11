@@ -105,7 +105,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = autoFinder.getAuto(side_chooser.getSelected().charAt(0));
+		m_autonomousCommand = new AutoFinder(side_chooser.getSelected().charAt(0));
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
@@ -116,7 +116,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		SmartDashboard.putString("Auto Command Running: ", String.valueOf(m_autonomousCommand == null));
 		Robot.m_oi.updateSmartDashboard();
 		Scheduler.getInstance().run();
 	}
