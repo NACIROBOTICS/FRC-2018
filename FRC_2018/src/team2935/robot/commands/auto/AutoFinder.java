@@ -26,6 +26,7 @@ public class AutoFinder extends CommandGroup{
 			    	addParallel(new AutoIntakeCube(1.5));
 			    	addSequential(new DriveToDistanceOnHeading(1,0.6,0.5));
 			    	addSequential(new AutoOuttakeCube(0.5));
+			    	break;
 				case 'R':
 			    	addSequential(new DriveToDistanceOnHeading(17,0.7,3));
 			    	addSequential(new TurnToAngle(90,1.25));
@@ -42,8 +43,12 @@ public class AutoFinder extends CommandGroup{
 			    	addSequential(new TurnToAngle(-45,0.75));
 			    	addSequential(new DriveToDistanceOnHeading(2,0.7,0.75));
 			    	addSequential(new AutoOuttakeCube(0.25));
+			    	break;
+			    default:
+			    	addSequential(new DriveToDistanceOnHeading(20,0.5,5));
+			    	break;
 			}
-			
+			break;
 		case 'R':
 			switch(switch_side) {
 				case 'L':
@@ -62,6 +67,7 @@ public class AutoFinder extends CommandGroup{
 			    	addSequential(new TurnToAngle(45,0.75));
 			    	addSequential(new DriveToDistanceOnHeading(2,0.7,0.75));
 			    	addSequential(new AutoOuttakeCube(0.25));
+			    	break;
 				case 'R':
 					addSequential(new DriveToDistanceOnHeading(15,0.6,3));
 			    	addSequential(new TurnToAngle(-90,1.5));
@@ -77,8 +83,12 @@ public class AutoFinder extends CommandGroup{
 			    	addParallel(new AutoIntakeCube(1.5));
 			    	addSequential(new DriveToDistanceOnHeading(1,0.6,0.5));
 			    	addSequential(new AutoOuttakeCube(0.5));
-		}
-			
+			    	break;
+			    default:
+			    	addSequential(new DriveToDistanceOnHeading(20,0.5,5));
+			    	break;
+			}
+			break;	
 		case 'C':
 			switch(switch_side) {
 			case 'L':
@@ -99,6 +109,7 @@ public class AutoFinder extends CommandGroup{
 		    	addSequential(new TurnToAngle(-90,1.5));
 		    	addSequential(new DriveToDistanceOnHeading(1,0.6,0.5));
 		    	addSequential(new AutoOuttakeCube(0.5));
+		    	break;
 			case 'R':
 				addSequential(new DriveToDistanceOnHeading(6,0.6,1.5));
 		    	addSequential(new TurnToAngle(90,1.5));   	
@@ -117,9 +128,12 @@ public class AutoFinder extends CommandGroup{
 		    	addSequential(new TurnToAngle(90,1.5));
 		    	addSequential(new DriveToDistanceOnHeading(1,0.6,0.5));
 		    	addSequential(new AutoOuttakeCube(0.5));
-			}	
-		
-		
-	}	          
+		    	break;
+		    default:
+		    	addSequential(new DriveToDistanceOnHeading(20,0.5,5));
+		    	break;
+			}
+			break;	
+	    }	          
   }
 }
