@@ -62,7 +62,7 @@ public class AutoFinder extends CommandGroup{
 		    	//addSequential(new TurnToAngle(-90,2.5));   	
 		    	//addSequential(new DriveToDistanceOnHeading(5,0.6,1));
 		    	//addSequential(new TurnToAngle(90,1.5));
-		    //	addSequential(new DriveToDistanceOnHeading(2.5,0.6,1));
+				//addSequential(new DriveToDistanceOnHeading(2.5,0.6,1));
 		    	addSequential(new AutoOuttakeCube(1));
 		    	break;
 			case 'R':
