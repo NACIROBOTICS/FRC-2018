@@ -2,8 +2,10 @@ package team2935.robot.subsystems;
 
 import com.toronto.subsystems.T_Subsystem;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.command.Subsystem;
 import team2935.robot.RobotMap;
 import team2935.robot.commands.intake.IntakeWheelsCommand;
@@ -17,8 +19,13 @@ public class IntakeSubsystem extends  T_Subsystem {
 	private VictorSP intakeMotor2 = new VictorSP(RobotMap.INTAKE_MOTOR2);
 	private Solenoid intakeOpen = new Solenoid(RobotMap.SOLENOID_INTAKE_CLOSE);
 	private Solenoid intakeClose = new Solenoid(RobotMap.SOLENOID_INTAKE_OPEN);
-
-    public void initDefaultCommand() {setDefaultCommand(new IntakeWheelsCommand());}
+    private AnalogInput cubeSensor = new AnalogInput(RobotMap.CUBE_SENSOR);
+    
+    public void initDefaultCommand() {
+    	setDefaultCommand(new IntakeWheelsCommand());
+    	
+    }
+    
     @Override
 	public void robotInit() {}
     
@@ -40,10 +47,18 @@ public class IntakeSubsystem extends  T_Subsystem {
 		intakeOpen.set(false);
 		intakeClose.set(true);
 	}
-    
+    public boolean cubeDected() {
+    	if(cubeSensor.getVoltage()<0.32) {
+    		return true;
+    	}
+    	return false;
+    }
     
     
 	@Override
-	public void updatePeriodic() {}
+	public void updatePeriodic() {
+		SmartDashboard.putNumber("Cube sensor voltage", cubeSensor.getVoltage() );
+	    SmartDashboard.putBoolean("Cube Dected", cubeDected());
+	}
 }
 

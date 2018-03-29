@@ -17,9 +17,9 @@ public class ArmMoveCommand extends Command {
     	boolean armUp = Robot.m_oi.getArmUp();
     	boolean armDown = Robot.m_oi.getArmDown();
     	if(armUp){
-    		Robot.armSubsystem.runArmDown(0.35);
+    		Robot.armSubsystem.runArmDown(0.6);
     	}else if(armDown){
-    		Robot.armSubsystem.runArmUp(0.5);
+    		Robot.armSubsystem.runArmUp(1);
     	}else{
     		Robot.armSubsystem.runArmDown(0);
     		Robot.armSubsystem.runArmUp(0);

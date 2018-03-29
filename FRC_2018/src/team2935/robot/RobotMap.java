@@ -42,4 +42,7 @@ public class RobotMap {
 	
 	//LIMIT SWITCH
 	public static final int LIMIT_SWITCH = 4;
+	
+    //ultrasonic
+	public static final int CUBE_SENSOR = 3;
 }

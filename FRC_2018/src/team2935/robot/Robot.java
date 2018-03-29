@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team2935.oi.OI;
 import team2935.robot.commands.auto.AutoFinder;
-import team2935.robot.commands.auto.AutoRaiseArm;
+import team2935.robot.commands.auto.CrossLineAuto;
 import team2935.robot.subsystems.ArmSubsystem;
 import team2935.robot.subsystems.ChassisSubsystem;
 import team2935.robot.subsystems.IntakeSubsystem;
@@ -90,6 +89,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Robot.m_oi.updateSmartDashboard();
 		Scheduler.getInstance().run();
+		Robot.intakeSubsystem.updatePeriodic();
 	}
 
 	/**
@@ -105,7 +105,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = autoFinder.getAuto(side_chooser.getSelected().charAt(0));
+		chassisSubsystem.resetEncoders();
+		chassisSubsystem.resetGyro();
+		m_autonomousCommand = new AutoFinder(side_chooser.getSelected().charAt(0));
+		//m_autonomousCommand = new CrossLineAuto();
+
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
@@ -116,7 +120,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		SmartDashboard.putString("Auto Command Running: ", String.valueOf(m_autonomousCommand == null));
 		Robot.m_oi.updateSmartDashboard();
 		Scheduler.getInstance().run();
 	}

@@ -14,7 +14,7 @@ public class GameControllerDriveCommand extends Command {
 	protected void initialize() {
 	}
 
-	int i = 1;
+	int i = 2;
 	boolean tank = true;
 	boolean tankShift;
 	boolean arcadeShift;
